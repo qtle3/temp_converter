@@ -32,20 +32,25 @@ def main():
     button_quit.draw(win)
     Rectangle(Point(2, 0.25), Point(3, 0.75)).draw(win)
 
-    # wait for a mouse click
-    win.getMouse()
+    while True:
+        # wait for a mouse click
+        click_point = win.getMouse()
 
-    # convert input
-    celsius = float(input.getText())
-    fahrenheit = 9.0 / 5.0 * celsius + 32
+        # Check if the Convert button was clicked
+        if 1 <= click_point.getX() <= 2 and 1.5 <= click_point.getY() <= 2.5:
+            try:
+                # Convert input
+                celsius = float(input.getText())
+                fahrenheit = 9.0 / 5.0 * celsius + 32
 
-    # display output and change button
-    output.setText(str(fahrenheit))
-    button.setText("Quit")
+                # Display output
+                output.setText(f"{fahrenheit:.2f}")
+            except ValueError:
+                output.setText("Invalid Input")
 
-    # wait for click and then quit
-    win.getMouse()
-    win.close()
+        # Check if the Quit button was clicked
+        elif 2 <= click_point.getX() <= 3 and 0.25 <= click_point.getY() <= 0.75:
+            break  # Exit the loop
 
 
 main()
